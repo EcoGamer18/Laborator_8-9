@@ -24,10 +24,10 @@ class FileRepository:
         self.__read_file()
         return deepcopy(list(self.__storage.values()))
 
-    def ge_by_id(self, id_entitate):
+    def get_by_id(self, id_entitate):
         self.__read_file()
         if id_entitate in self.__storage:
-            return deepcopy(self.storage[id_entitate])
+            return deepcopy(self.__storage[id_entitate])
         return None
 
     def adaugare(self, entitate: Entitate):
@@ -41,14 +41,14 @@ class FileRepository:
         self.__storage[entitate.id_entitate] = entitate
         self.__write_to_file()
 
-    def stergere(self,id_entitate):
+    def stergere(self, id_entitate):
         if self.get_by_id(id_entitate) is None:
             raise KeyError(f"Nu exista nicio entitate cu id-ul {id_entitate}")
         del self.__storage[id_entitate]
         self.__write_to_file()
 
-    def modificare(self,entitate: Entitate):
+    def modificare(self, entitate: Entitate):
         if self.get_by_id(entitate.id_entitate) is None:
-            raise KeyError(f"Mu exista nicio entitate cu id-ul {entitate.d_entitate}")
-        self.storage[entitate.id_entitate]=entitate
+            raise KeyError(f"Mu exista nicio entitate cu id-ul {entitate.id_entitate}")
+        self.__storage[entitate.id_entitate] = entitate
         self.__write_to_file()

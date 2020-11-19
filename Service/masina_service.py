@@ -23,7 +23,7 @@ class MasinaService:
         """
         Stergerea unei masini din dictionarul care reprezinta repository-ul
         """
-        self.__masini_validator.stergere(id_masina)
+        self.__masini_repository.stergere(id_masina)
 
     def modificare(self, id_masina, model, an_achizitie, nr_km, garantie):
         masina = self.__masini_repository.get_by_id(id_masina)
