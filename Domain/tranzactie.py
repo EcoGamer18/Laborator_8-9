@@ -57,4 +57,4 @@ class Tranzactie(Entitate):
 
     @ora.setter
     def ora(self, ora_noua):
-        self.__ora=ora_noua
+        self.__ora = ora_noua
