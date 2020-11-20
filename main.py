@@ -4,6 +4,7 @@ from Repository.file_repository import FileRepository
 from Service.card_client_service import CardClientService
 from Service.masina_service import MasinaService
 from Service.tranzactie_service import TranzactieService
+from Tests.run_all_tests import run_all
 from UI.console import Consola
 
 
@@ -22,4 +23,5 @@ def main():
     console=Consola(masina_service,carduri_service,tranzactii_service)
     console.run_menu()
 
+run_all()
 main()
