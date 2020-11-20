@@ -16,7 +16,7 @@ class Masina(Entitate):
 
     def __str__(self):
         return f"Id-ul masinii: {self.id_entitate}, Model: {self.model}, " \
-               f"Anul achizitiei: {self.an_achiziie}, Numarul de km:{self.nr_km}, " \
+               f"Anul achizitiei: {self.__an_achizitie}, Numarul de km:{self.nr_km}, " \
                f"Este in garantie: {self.garantie}"
 
     @property

@@ -12,7 +12,7 @@ class FileRepository:
     def __read_file(self):
         try:
             with open(self.__file_name, 'r') as fp:
-                self.__storage = jsonpickle.decode(fd.read())
+                self.__storage = jsonpickle.decode(fp.read())
         except:
             self.__storage = {}
 

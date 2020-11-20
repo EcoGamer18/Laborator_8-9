@@ -1,6 +1,7 @@
 from Service.card_client_service import CardClientService
 from Service.masina_service import MasinaService
 from Service.tranzactie_service import TranzactieService
+from simple_colors import yellow, red
 
 
 class Consola:
@@ -33,7 +34,7 @@ class Consola:
             print("1.Adaugare masina\n"
                   "2.Stergere masina\n"
                   "3.Modificare masina\n"
-                  "a.Afiseaza toate masinile"
+                  "a.Afiseaza toate masinile\n"
                   "x.Iesire din meniul \"CRUD masini\"\n")
             option = input("Alegeti optiunile:\n")
             if option == '1':
@@ -55,9 +56,10 @@ class Consola:
             model = input("Modelul masinii: ")
             an_achizitie = int(input("Anul achizitiei(>0): "))
             nr_km = int(input("Numarul de km(>0): "))
-            garantie = input("Garantie (True/False): ")
+            garantie = input("Garantie (DA/NU): ")
 
             self.__masina_service.adaugare(id_masina, model, an_achizitie, nr_km, garantie)
+            print(yellow("Masina a fost adaugata.", ['italic']))
         except ValueError as ve:
             print(ve)
         except KeyError as ke:
@@ -70,6 +72,7 @@ class Consola:
             id_masina = input("Dati Id-ul masinii pe care vreti sa o stergeti: ")
 
             self.__masina_service.stergere(id_masina)
+            print(yellow("Masina a fost stearsa.", ['italic']))
         except ValueError as ve:
             print(ve)
         except KeyError as ke:
@@ -83,9 +86,10 @@ class Consola:
             model = input("Modelul nou al  masinii sau nimic daca vreti sa ramana la fel: ")
             an_achizitie = int(input("Anul nou al achizitiei (>0) sau 0 daca vreti sa ramana la fel: "))
             nr_km = int(input("Numarul nou de km (>0) sau 0 daca vreti sa ramana la fel: "))
-            garantie = input("Garantie (True/False) sau nimic daca vreti sa ramana la fel: ")
+            garantie = input("Garantie (DA/NU) sau nimic daca vreti sa ramana la fel: ")
 
             self.__masina_service.modificare(id_masina, model, an_achizitie, nr_km, garantie)
+            print(yellow("Masina a fost modificata.", ['italic']))
         except ValueError as ve:
             print(ve)
         except KeyError as ke:
@@ -120,21 +124,21 @@ class Consola:
                 print("Optiune invalida")
 
     def ui_adaugare_card(self):
-        try:
-            id_card = input("Id-ul cardului: ")
-            nume = input("Numele clientului: ")
-            prenume = input("Prenumele clientului: ")
-            CNP = input("CNP-ul clientului: ")
-            data_nasterii = input("Data nasterii clientului(dd.mm.yyyy): ")
-            data_inregistrarii = input("Data inregistrarii(dd.mm.yyyy): ")
+        # try:
+        id_card = input("Id-ul cardului: ")
+        nume = input("Numele clientului: ")
+        prenume = input("Prenumele clientului: ")
+        CNP = input("CNP-ul clientului: ")
+        data_nasterii = input("Data nasterii clientului(dd.mm.yyyy): ")
+        data_inregistrarii = input("Data inregistrarii(dd.mm.yyyy): ")
 
-            self.__card_client_service.adaugare(id_card, nume, prenume, CNP, data_nasterii, data_inregistrarii)
-        except ValueError as ve:
+        self.__card_client_service.adaugare(id_card, nume, prenume, CNP, data_nasterii, data_inregistrarii)
+        '''except ValueError as ve:
             print(ve)
         except KeyError as ke:
             print(ke)
         except Exception as e:
-            print(e)
+            print(e)'''
 
     def ui_stergere_card(self):
         try:
@@ -243,6 +247,6 @@ class Consola:
             print(e)
 
     def ui_afisare_tranzactii(self):
-        tranzactii=self.__tranzactie_service.get_all()
+        tranzactii = self.__tranzactie_service.get_all()
         for tranzactie in tranzactii:
             print(tranzactie)

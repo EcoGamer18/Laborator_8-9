@@ -44,4 +44,4 @@ class CardClientService:
             card_client.data_inregistrarii = data_inregistrarii
 
         self.__card_client_validator.validator(card_client)
-        self.__masini_repository.modificare(card_client)
+        self.__card_client_repository.modificare(card_client)
