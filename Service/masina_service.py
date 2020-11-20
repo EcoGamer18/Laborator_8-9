@@ -37,7 +37,7 @@ class MasinaService:
             masina.an_achizitie = an_achizitie
         if nr_km != 0:
             masina.nr_km = nr_km
-        if model != "":
+        if garantie != "":
             masina.garantie = garantie
 
         self.__masini_validator.validator(masina)
