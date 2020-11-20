@@ -46,7 +46,7 @@ class Tranzactie(Entitate):
 
     @suma_manopera.setter
     def suma_manopera(self, suma_manopera_noua):
-        self.suma_manopera = suma_manopera_noua
+        self.__suma_manopera = suma_manopera_noua
 
     @property
     def data(self):
@@ -94,4 +94,4 @@ class Tranzactie(Entitate):
 
     @s_m_redusa.setter
     def s_m_redusa(self, s_m_noua):
-        self.s_m_redusa = s_m_noua
+        self.__s_m_redusa = s_m_noua
