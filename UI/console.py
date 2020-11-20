@@ -110,6 +110,7 @@ class Consola:
             print("1.Adaugare card\n"
                   "2.Stergere card\n"
                   "3.Modificare card\n"
+                  "4.Populare\n"
                   "a.Afiseaza toate cardurile\n"
                   "x.Iesire din meniul \"CRUD carduri\"\n")
             option = input("Alegeti optiunile:\n")
@@ -119,6 +120,8 @@ class Consola:
                 self.ui_stergere_card()
             elif option == '3':
                 self.ui_modificare_card()
+            elif option == '4':
+                self.ui_populare_card()
             elif option == 'a':
                 self.ui_afisare_carduri()
             elif option == 'x':
@@ -269,3 +272,7 @@ class Consola:
                 print(x)
         except Exception as e:
             print(e)
+
+    def ui_populare_card(self):
+        n=int(input("Introduceti un numar n: "))
+        self.__card_client_service.populatie(n)
