@@ -4,6 +4,12 @@ class CardValidator:
     def validator(self, card):
         erori = []
         today= datetime.date.today()
+        try:
+            id=int(card.id_entitate)
+            if id<=0:
+                raise ValueError
+        except ValueError:
+            erori.append("Id-ul trebuie sa fie de tipul int strict pozitiv.")
         if len(card.CNP) != 13:
             erori.append("CNP-ul trebuie sa aiba 13 cifre.")
         try:
