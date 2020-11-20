@@ -1,5 +1,6 @@
 from Domain.tranzactie import Tranzactie
 from Repository.file_repository import FileRepository
+from ViewModels.view_models import ViewModels
 
 
 class TranzactieService:
@@ -10,7 +11,13 @@ class TranzactieService:
         self.__card_client_repository = card_client_repository
 
     def get_all(self):
-        pass
+        view_models = []
+        for tranzactie in self.__tranzactie_repository.get_all():
+            masina = self.__masini_repository.get_by_id(tranzactie.id_masina)
+            view_models.append(
+                ViewModels(tranzactie.id_entitate, masina, tranzactie.suma_piese, tranzactie.suma_manopera,
+                           tranzactie.data, tranzactie.ora, tranzactie.reducere_card,
+                           tranzactie.reducere_garantie))
 
     def adaugare(self, id_tranzactie, id_masina, id_card, suma_piese, suma_manopera, data, ora):
         masina = self.__masini_repository.get_by_id(id_masina)
@@ -37,7 +44,7 @@ class TranzactieService:
         tranzactie = self.__tranzactie_repository.get_by_id(id_tranzactie)
 
         if tranzactie is None:
-            raise KeyError(f"Nu exista nicio comanda cu id-ul {id_comanda}")
+            raise KeyError(f"Nu exista nicio comanda cu id-ul {id_tranzactie}")
 
         if id_masina != "":
             if self.__masini_repository.get_by_id(id_masina) is None:
