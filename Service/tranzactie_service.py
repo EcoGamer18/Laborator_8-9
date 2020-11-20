@@ -1,14 +1,16 @@
 from Domain.tranzactie import Tranzactie
+from Domain.tranzactie_validator import TranzactieValidator
 from Repository.file_repository import FileRepository
 from ViewModels.view_models import ViewModels
 
 
 class TranzactieService:
     def __init__(self, tranzactie_repository: FileRepository, masini_repository: FileRepository,
-                 card_client_repository: FileRepository):
+                 card_client_repository: FileRepository,tranzactie_validator: TranzactieValidator):
         self.__tranzactie_repository = tranzactie_repository
         self.__masini_repository = masini_repository
         self.__card_client_repository = card_client_repository
+        self.__tranzactie_validator=tranzactie_validator
 
     def get_all(self):
         view_models = []
@@ -42,7 +44,7 @@ class TranzactieService:
 
         tranzactie = Tranzactie(id_tranzactie, id_masina, id_card, suma_piese, suma_manopera, data, ora, reducere_card,
                                 reducere_garantie, suma_piese_final, suma_manopera_final)
-
+        self.__tranzactie_validator.validator(tranzactie)
         self.__tranzactie_repository.adaugare(tranzactie)
 
     def stergere(self, id_tranzactie):
@@ -82,15 +84,17 @@ class TranzactieService:
         if tranzactie.reducere_garantie:
             tranzactie.s_p_redusa = 0
 
+        self.__tranzactie_validator.validator(tranzactie)
         self.__tranzactie_repository.modificare(tranzactie)
 
-    def tranzactii_interval(self,inf,sup):
-        tranzactii= self.__tranzactie_repository.get_all()
-        tranzactii_interval=[]
+    def tranzactii_interval(self, inf, sup):
+        tranzactii = self.__tranzactie_repository.get_all()
+        tranzactii_interval = []
         for tranzactie in tranzactii:
-            if inf <= tranzactie.s_p_redusa+tranzactie.s_m_redusa <= sup:
+            if inf <= tranzactie.s_p_redusa + tranzactie.s_m_redusa <= sup:
                 masina = self.__masini_repository.get_by_id(tranzactie.id_masina)
-                tranzactii_interval.append(ViewModels(tranzactie.id_entitate, masina, tranzactie.suma_piese, tranzactie.suma_manopera,
-                           tranzactie.data, tranzactie.ora, tranzactie.reducere_card,
-                           tranzactie.reducere_garantie, tranzactie.s_p_redusa, tranzactie.s_m_redusa))
+                tranzactii_interval.append(
+                    ViewModels(tranzactie.id_entitate, masina, tranzactie.suma_piese, tranzactie.suma_manopera,
+                               tranzactie.data, tranzactie.ora, tranzactie.reducere_card,
+                               tranzactie.reducere_garantie, tranzactie.s_p_redusa, tranzactie.s_m_redusa))
         return tranzactii_interval

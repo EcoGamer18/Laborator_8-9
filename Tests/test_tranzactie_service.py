@@ -1,5 +1,6 @@
 from Domain.card_client import CardClient
 from Domain.masina import Masina
+from Domain.tranzactie_validator import TranzactieValidator
 from Repository.file_repository import FileRepository
 from Service.tranzactie_service import TranzactieService
 from Tests.utilities import clear_file
@@ -12,7 +13,8 @@ def test_adaugare_tranzactie():
     masini_repository = FileRepository('masini-test.txt')
     clear_file("carduri-test.txt")
     carduri_repository = FileRepository('carduri-test.txt')
-    service = TranzactieService(tranzactii_repository, masini_repository, carduri_repository)
+    tranzactii_validator= TranzactieValidator()
+    service = TranzactieService(tranzactii_repository, masini_repository, carduri_repository,tranzactii_validator)
     carduri_repository.adaugare(CardClient('1', 'Popescu', 'Dan', '5000121223541', "18.01.2001", '04.11.2003'))
     masini_repository.adaugare(Masina('1', 'Mercedes', 1998, 450000, "NU"))
     service.adaugare('1', '1', '1', 152, 1562, '18.10.2012', '15:10')
@@ -59,7 +61,8 @@ def test_stergere_tranzactie():
     masini_repository = FileRepository('masini-test.txt')
     clear_file("carduri-test.txt")
     carduri_repository = FileRepository('carduri-test.txt')
-    service = TranzactieService(tranzactii_repository, masini_repository, carduri_repository)
+    tranzactii_validator = TranzactieValidator()
+    service = TranzactieService(tranzactii_repository, masini_repository, carduri_repository, tranzactii_validator)
     carduri_repository.adaugare(CardClient('1', 'Popescu', 'Dan', '5000121223541', "18.01.2001", '04.11.2003'))
     masini_repository.adaugare(Masina('1', 'Mercedes', 1998, 450000, "NU"))
     service.adaugare('1', '1', '1', 152, 1562, '18.10.2012', '15:10')
@@ -83,7 +86,8 @@ def test_modificare_tranzactie():
     masini_repository = FileRepository('masini-test.txt')
     clear_file("carduri-test.txt")
     carduri_repository = FileRepository('carduri-test.txt')
-    service = TranzactieService(tranzactii_repository, masini_repository, carduri_repository)
+    tranzactii_validator = TranzactieValidator()
+    service = TranzactieService(tranzactii_repository, masini_repository, carduri_repository, tranzactii_validator)
     carduri_repository.adaugare(CardClient('1', 'Popescu', 'Dan', '5000121223541', "18.01.2001", '04.11.2003'))
     masini_repository.adaugare(Masina('1', 'Mercedes', 1998, 450000, "NU"))
     service.adaugare('1', '1', '1', 152, 1562, '18.10.2012', '15:10')
