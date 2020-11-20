@@ -3,7 +3,7 @@ from Domain.entitate import Entitate
 
 class CardClient(Entitate):
     def __init__(self, id_card, nume, prenume, CNP, data_nasterii, data_inregistrarii):
-        super().__id_entitate = id_card
+        super().__init__(id_card)
         self.__nume = nume
         self.__prenume = prenume
         self.__CNP = CNP
@@ -11,9 +11,9 @@ class CardClient(Entitate):
         self.__data_inregistrarii = data_inregistrarii
 
     def __str__(self):
-        return f"Id-ul cardului: {self.__id_card}, Numele clientului: {self.__nume}, " \
-               f"Prenumele clientului: {self.__prenume}, CNP-ul: {self.__CNP}, " \
-               f"Data nasterii: {self.__data_nasterii}, Data inregistrarii: {self.__data_inregistrarii}"
+        return f"Id-ul cardului: {self.id_entitate}, Numele clientului: {self.nume}, " \
+               f"Prenumele clientului: {self.prenume}, CNP-ul: {self.CNP}, " \
+               f"Data nasterii: {self.data_nasterii}, Data inregistrarii: {self.data_inregistrarii}"
 
     @property
     def nume(self):

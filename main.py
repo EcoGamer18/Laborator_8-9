@@ -19,7 +19,7 @@ def main():
     carduri_service=CardClientService(carduri_repository,carduri_validator)
     tranzactii_service=TranzactieService(tranzactii_repository,masini_repository,carduri_repository)
 
-    console=Consola(masina_service,carduri_repository,tranzactii_repository)
+    console=Consola(masina_service,carduri_service,tranzactii_service)
     console.run_menu()
 
 main()
