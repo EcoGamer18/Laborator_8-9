@@ -17,25 +17,31 @@ class TranzactieService:
             view_models.append(
                 ViewModels(tranzactie.id_entitate, masina, tranzactie.suma_piese, tranzactie.suma_manopera,
                            tranzactie.data, tranzactie.ora, tranzactie.reducere_card,
-                           tranzactie.reducere_garantie))
+                           tranzactie.reducere_garantie, tranzactie.s_p_redusa, tranzactie.s_m_redusa))
         return view_models
 
     def adaugare(self, id_tranzactie, id_masina, id_card, suma_piese, suma_manopera, data, ora):
         masina = self.__masini_repository.get_by_id(id_masina)
         card = self.__card_client_repository.get_by_id(id_card)
-        reducere_card=False
-        reducere_garantie=False
+        reducere_card = False
+        reducere_garantie = False
         if masina is None:
             raise KeyError("Nu se poate face tranzactia pentru ca nu exista masina cu id-ul dat.")
-        if card is None and id_card!='0':
+        if card is None and id_card != '0':
             raise KeyError("Nu se poate face tranzactia pentru ca nu exista card cu id-ul dat")
         if id_card != "0":
             reducere_card = True
         if masina.garantie == "DA":
             reducere_garantie = True
+        suma_manopera_final = suma_manopera
+        suma_piese_final = suma_piese
+        if reducere_card:
+            suma_manopera_final = 9 / 10 * suma_manopera
+        if reducere_garantie:
+            suma_piese_final = 0
 
         tranzactie = Tranzactie(id_tranzactie, id_masina, id_card, suma_piese, suma_manopera, data, ora, reducere_card,
-                                reducere_garantie)
+                                reducere_garantie, suma_piese_final, suma_manopera_final)
 
         self.__tranzactie_repository.adaugare(tranzactie)
 
@@ -53,7 +59,7 @@ class TranzactieService:
                 raise KeyError("Nu se poate modifica tranzactia pentru ca nu exista o masina cu id-ul dat")
             tranzactie.id_masina = id_masina
         if id_card != "":
-            if self.__card_client_repository.get_by_id(id_card) is None and id_card!='0':
+            if self.__card_client_repository.get_by_id(id_card) is None and id_card != '0':
                 raise KeyError("Nu se poate modifica tranzactia pentru ca nu exista un card client cu id-ul dat")
             tranzactie.id_card = id_card
         if suma_piese != 0:
@@ -70,5 +76,10 @@ class TranzactieService:
             tranzactie.reducere_card = False
         if masina.garantie == "DA":
             tranzactie.reducere_garantie = True
+
+        if tranzactie.reducere_card:
+            tranzactie.s_m_redusa = 9 / 10 * tranzactie.suma_manopera
+        if tranzactie.reducere_garantie:
+            tranzactie.s_p_redusa = 0
 
         self.__tranzactie_repository.modificare(tranzactie)
