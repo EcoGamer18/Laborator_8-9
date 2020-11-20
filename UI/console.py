@@ -16,6 +16,7 @@ class Consola:
             print("1.CRUD masini\n"
                   "2.CRUD carduri\n"
                   "3.CRUD tranzactii\n"
+                  "4.Afișarea tuturor tranzacțiilor cu suma cuprinsă într-un interval dat.\n"
                   "x.Iesire")
             option = input("Alegeti o optiune:\n")
             if option == '1':
@@ -24,6 +25,8 @@ class Consola:
                 self.run_crud_carduri()
             elif option == '3':
                 self.run_crud_tranzactii()
+            elif option == '4':
+                self.ui_afisare_interval()
             elif option == 'x':
                 break
             else:
@@ -256,3 +259,13 @@ class Consola:
         tranzactii = self.__tranzactie_service.get_all()
         for tranzactie in tranzactii:
             print(tranzactie)
+
+    def ui_afisare_interval(self):
+        try:
+            inf=float(input("Introduceti capatul inf al intervalului: "))
+            sup=float(input("Introduceti capatul sup al intervalului: "))
+            print(f"Tranzactiile alfate in intervalul [{inf},{sup}] sunt:")
+            for x in self.__tranzactie_service.tranzactii_interval(inf,sup):
+                print(x)
+        except Exception as e:
+            print(e)

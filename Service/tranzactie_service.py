@@ -83,3 +83,14 @@ class TranzactieService:
             tranzactie.s_p_redusa = 0
 
         self.__tranzactie_repository.modificare(tranzactie)
+
+    def tranzactii_interval(self,inf,sup):
+        tranzactii= self.__tranzactie_repository.get_all()
+        tranzactii_interval=[]
+        for tranzactie in tranzactii:
+            if inf <= tranzactie.s_p_redusa+tranzactie.s_m_redusa <= sup:
+                masina = self.__masini_repository.get_by_id(tranzactie.id_masina)
+                tranzactii_interval.append(ViewModels(tranzactie.id_entitate, masina, tranzactie.suma_piese, tranzactie.suma_manopera,
+                           tranzactie.data, tranzactie.ora, tranzactie.reducere_card,
+                           tranzactie.reducere_garantie, tranzactie.s_p_redusa, tranzactie.s_m_redusa))
+        return tranzactii_interval
