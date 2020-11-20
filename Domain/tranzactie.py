@@ -2,7 +2,8 @@ from Domain.entitate import Entitate
 
 
 class Tranzactie(Entitate):
-    def __init__(self, id_tranzactie, id_masina, id_card_client, suma_piese, suma_manopera, data, ora):
+    def __init__(self, id_tranzactie, id_masina, id_card_client, suma_piese, suma_manopera, data, ora, reducere_card,
+                 reducere_garantie):
         super().__init__(id_tranzactie)
         self.__id_masina = id_masina
         self.__id_card_client = id_card_client
@@ -10,6 +11,8 @@ class Tranzactie(Entitate):
         self.__suma_manopera = suma_manopera
         self.__data = data
         self.__ora = ora
+        self.__reducere_card = reducere_card
+        self.__reducere_garantie = reducere_garantie
 
     @property
     def id_masina(self):
@@ -58,3 +61,19 @@ class Tranzactie(Entitate):
     @ora.setter
     def ora(self, ora_noua):
         self.__ora = ora_noua
+
+    @property
+    def reducere_card(self):
+        return self.__reducere_card
+
+    @reducere_card.setter
+    def reducere_card(self, reducere_card_noua):
+        self.__reducere_card = reducere_card_noua
+
+    @property
+    def reducere_garantie(self):
+        return self.__reducere_garantie
+
+    @reducere_garantie.setter
+    def reducere_garantie(self, reducere_garantie_noua):
+        self.__reducere_garantie = reducere_garantie_noua
