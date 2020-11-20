@@ -24,7 +24,7 @@ class ViewModels:
         if suma_manopera_finala != self.suma_manopera:
             if len(mesaj_reducere_piese) > 0:
                 mesaj_reducere_manopera = " si"
-            mesaj_reducere_manopera += " cu reducre datorita cardului"
-        return f"Id-ul tranzactie: {self.id_tranzactie}\n-----------------\n" \
-               f"cu masina:\n {self.masina}\n-----------\n are pretul initial" \
-               f"{self.suma_piese + self.suma_manopera} si pretul final"
+            mesaj_reducere_manopera += " cu reducere datorita cardului"
+        return f"Id-ul tranzactie: {self.id_tranzactie}\nde data de {self.data} la ora {self.ora}\n-----------------\n" \
+               f"cu masina:\n{self.masina}\n-----------\nare pretul initial " \
+               f"{self.suma_piese + self.suma_manopera} si pretul final {suma_manopera_finala+suma_piese_finala}"+mesaj_reducere_piese+mesaj_reducere_manopera+".\n"

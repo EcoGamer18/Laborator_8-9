@@ -133,7 +133,7 @@ class Consola:
             data_inregistrarii = input("Data inregistrarii(dd.mm.yyyy): ")
 
             self.__card_client_service.adaugare(id_card, nume, prenume, CNP, data_nasterii, data_inregistrarii)
-            print(yellow("Cardul a fost adaugat.",['italic']))
+            print(yellow("Cardul a fost adaugat.", ['italic']))
         except ValueError as ve:
             print(ve)
         except KeyError as ke:
@@ -201,28 +201,30 @@ class Consola:
                 print("Optiune invalida")
 
     def ui_adaugare_tranzactie(self):
-        #try:
-        id_tranzactie = input("Id-ul tranzactie: ")
-        id_masina = input("Id-ul masinii: ")
-        id_card = input("Id-ul cardului(0 daca nu are card): ")
-        suma_piese = float(input("Suma pieselor: "))
-        suma_manopera = float(input("Suma manoperei: "))
-        data = input("Data(dd.mm.yyyy): ")
-        ora = input("Ora(hh:mm): ")
+        try:
+            id_tranzactie = input("Id-ul tranzactie: ")
+            id_masina = input("Id-ul masinii: ")
+            id_card = input("Id-ul cardului(0 daca nu are card): ")
+            suma_piese = float(input("Suma pieselor: "))
+            suma_manopera = float(input("Suma manoperei: "))
+            data = input("Data(dd.mm.yyyy): ")
+            ora = input("Ora(hh:mm): ")
 
-        self.__tranzactie_service.adaugare(id_tranzactie, id_masina, id_card, suma_piese, suma_manopera, data, ora)
-        '''except ValueError as ve:
+            self.__tranzactie_service.adaugare(id_tranzactie, id_masina, id_card, suma_piese, suma_manopera, data, ora)
+            print(yellow("Tranzactia a fost adaugata.", ['italic']))
+        except ValueError as ve:
             print(ve)
         except KeyError as ke:
             print(ke)
         except Exception as e:
-            print(e)'''
+            print(e)
 
     def ui_stergere_tranzactie(self):
         try:
             id_tranzactie = input("Dati Id-ul tranzactie pe care vreti sa il stergeti: ")
 
             self.__tranzactie_service.stergere(id_tranzactie)
+            print(yellow("Tranzactia a fost stearsa.", ['italic']))
         except ValueError as ve:
             print(ve)
         except KeyError as ke:
@@ -242,6 +244,7 @@ class Consola:
 
             self.__tranzactie_service.modificare(id_tranzactie, id_masina, id_card, suma_piese, suma_manopera, data,
                                                  ora)
+            print(yellow("Tranzactia a fost modificata.", ['italic']))
         except ValueError as ve:
             print(ve)
         except KeyError as ke:

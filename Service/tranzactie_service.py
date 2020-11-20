@@ -18,18 +18,20 @@ class TranzactieService:
                 ViewModels(tranzactie.id_entitate, masina, tranzactie.suma_piese, tranzactie.suma_manopera,
                            tranzactie.data, tranzactie.ora, tranzactie.reducere_card,
                            tranzactie.reducere_garantie))
+        return view_models
 
     def adaugare(self, id_tranzactie, id_masina, id_card, suma_piese, suma_manopera, data, ora):
         masina = self.__masini_repository.get_by_id(id_masina)
         card = self.__card_client_repository.get_by_id(id_card)
-
+        reducere_card=False
+        reducere_garantie=False
         if masina is None:
             raise KeyError("Nu se poate face tranzactia pentru ca nu exista masina cu id-ul dat.")
-        if card is None:
+        if card is None and id_card!='0':
             raise KeyError("Nu se poate face tranzactia pentru ca nu exista card cu id-ul dat")
-        if id_card == "0":
-            reducere_card = False
-        if masina.garantie is "True":
+        if id_card != "0":
+            reducere_card = True
+        if masina.garantie == "DA":
             reducere_garantie = True
 
         tranzactie = Tranzactie(id_tranzactie, id_masina, id_card, suma_piese, suma_manopera, data, ora, reducere_card,
@@ -51,7 +53,7 @@ class TranzactieService:
                 raise KeyError("Nu se poate modifica tranzactia pentru ca nu exista o masina cu id-ul dat")
             tranzactie.id_masina = id_masina
         if id_card != "":
-            if self.__card_client_repository.get_by_id(id_card) is None:
+            if self.__card_client_repository.get_by_id(id_card) is None and id_card!='0':
                 raise KeyError("Nu se poate modifica tranzactia pentru ca nu exista un card client cu id-ul dat")
             tranzactie.id_card = id_card
         if suma_piese != 0:
@@ -63,10 +65,10 @@ class TranzactieService:
         if ora != "":
             tranzactie.ora = ora
 
-        masina = self.__masini_repository.get_by_id(id_masina)
+        masina = self.__masini_repository.get_by_id(tranzactie.id_masina)
         if id_card == "0":
             tranzactie.reducere_card = False
-        if masina.garantie is "True":
+        if masina.garantie == "DA":
             tranzactie.reducere_garantie = True
 
         self.__tranzactie_repository.modificare(tranzactie)
