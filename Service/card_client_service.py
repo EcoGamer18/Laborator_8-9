@@ -48,37 +48,32 @@ class CardClientService:
         self.__card_client_validator.validator(card_client)
         self.__card_client_repository.modificare(card_client)
 
-    def populatie(self,n):
-        nume=["Popescu","Abaza","Botescu","Bogza","Boteanu","Costea",
-              "Cupsa","Danciu","Cioaca","Iaru","Iacobescu","Nistor",
-              "Tiron","Timofte","Tescanu","Xenopol","Zaharescu"]
-        prenume=["Ada","Eusebia","Mihai","Diana","Delia","Floarea","Elvira",
-                 "Floriana","Evelina","Eugenia","Emilia","Geta","Lorena",
-                 "Rebeca","Profira","Paulica","Abel","George","Edgar","Gelu",
-                 "Felix","Gabriel","Ghita","Jean","Ovidiu"]
+    def populatie(self, n):
+        nume = ["Popescu", "Abaza", "Botescu", "Bogza", "Boteanu", "Costea",
+                "Cupsa", "Danciu", "Cioaca", "Iaru", "Iacobescu", "Nistor",
+                "Tiron", "Timofte", "Tescanu", "Xenopol", "Zaharescu"]
+        prenume = ["Ada", "Eusebia", "Mihai", "Diana", "Delia", "Floarea", "Elvira",
+                   "Floriana", "Evelina", "Eugenia", "Emilia", "Geta", "Lorena",
+                   "Rebeca", "Profira", "Paulica", "Abel", "George", "Edgar", "Gelu",
+                   "Felix", "Gabriel", "Ghita", "Jean", "Ovidiu"]
         for i in range(n):
-            id= random.choice(range(1, 1000))
+            id = random.choice(range(1, 1000))
             while self.__card_client_repository.get_by_id(id) is not None:
                 id = random.choice(range(1, 100))
-            nume_ob=random.choice(nume)
-            prenume_ob=random.choice(prenume)
-            CNP=random.randint(10**12,10**13-1)
-            ziua=random.choice(range(1,31))
-            ziua_adaos= "0" if ziua<=9 else ""
-            luna=random.choice(range(1,13))
-            luna_adaos= "0" if luna<=9 else ""
-            anul=random.choice(range(1989,2020))
-            data_nasterii=ziua_adaos+str(ziua)+'.'+luna_adaos+str(luna)+'.'+str(anul)
+            nume_ob = random.choice(nume)
+            prenume_ob = random.choice(prenume)
+            CNP = random.randint(10 ** 12, 10 ** 13 - 1)
             ziua = random.choice(range(1, 31))
             ziua_adaos = "0" if ziua <= 9 else ""
             luna = random.choice(range(1, 13))
             luna_adaos = "0" if luna <= 9 else ""
             anul = random.choice(range(1989, 2020))
-            data_inregistrarii=ziua_adaos +str(ziua)+'.'+luna_adaos+str(luna)+'.'+str(anul)
-            carduri=CardClient(id,nume_ob,prenume_ob,CNP,data_nasterii,data_inregistrarii)
+            data_nasterii = ziua_adaos + str(ziua) + '.' + luna_adaos + str(luna) + '.' + str(anul)
+            ziua = random.choice(range(1, 31))
+            ziua_adaos = "0" if ziua <= 9 else ""
+            luna = random.choice(range(1, 13))
+            luna_adaos = "0" if luna <= 9 else ""
+            anul = random.choice(range(1989, 2020))
+            data_inregistrarii = ziua_adaos + str(ziua) + '.' + luna_adaos + str(luna) + '.' + str(anul)
+            carduri = CardClient(id, nume_ob, prenume_ob, CNP, data_nasterii, data_inregistrarii)
             self.__card_client_repository.adaugare(carduri)
-
-
-
-
-

@@ -17,6 +17,7 @@ class Consola:
                   "2.CRUD carduri\n"
                   "3.CRUD tranzactii\n"
                   "4.Afișarea tuturor tranzacțiilor cu suma cuprinsă într-un interval dat.\n"
+                  "5.Cautare \n"
                   "x.Iesire")
             option = input("Alegeti o optiune:\n")
             if option == '1':
@@ -27,6 +28,8 @@ class Consola:
                 self.run_crud_tranzactii()
             elif option == '4':
                 self.ui_afisare_interval()
+            elif option == '5':
+                self.ui_cautare()
             elif option == 'x':
                 break
             else:
@@ -265,14 +268,165 @@ class Consola:
 
     def ui_afisare_interval(self):
         try:
-            inf=float(input("Introduceti capatul inf al intervalului: "))
-            sup=float(input("Introduceti capatul sup al intervalului: "))
+            inf = float(input("Introduceti capatul inf al intervalului: "))
+            sup = float(input("Introduceti capatul sup al intervalului: "))
             print(f"Tranzactiile alfate in intervalul [{inf},{sup}] sunt:")
-            for x in self.__tranzactie_service.tranzactii_interval(inf,sup):
+            for x in self.__tranzactie_service.tranzactii_interval(inf, sup):
                 print(x)
         except Exception as e:
             print(e)
 
     def ui_populare_card(self):
-        n=int(input("Introduceti un numar n: "))
+        n = int(input("Introduceti un numar n: "))
         self.__card_client_service.populatie(n)
+
+    def ui_cautare(self):
+        while True:
+            print("1.Cautare masini\n"
+                  "2.Cautare clienti\n"
+                  "3.Cautare full text\n"
+                  "x.Iesire din meniu \"Cautare\" \n")
+            option = input("Alegeti optiunea:\n")
+            if option == "1":
+                self.ui_cautare_masini()
+            elif option == "2":
+                self.ui_cautare_clienti()
+            elif option == "3":
+                self.ui_cautare_full()
+            elif option == "x":
+                break
+            else:
+                print("Optiune invalida\n")
+
+    def ui_cautare_masini(self):
+        while True:
+            print("1.Cautare dupa model\n"
+                  "2.Cautare dupa an achizitie\n"
+                  "3.Cautare dupa nr. km\n"
+                  "x.Iesire din meniu \"Cautare masini\" \n")
+            option = input("Alegeti optiunea:\n")
+            if option == "1":
+                self.ui_cautare_masini_model()
+            elif option == "2":
+                self.ui_cautare_masini_an()
+            elif option == "3":
+                self.ui_cautare_masini_km()
+            elif option == "x":
+                break
+            else:
+                print("Optiune invalida")
+
+    def ui_cautare_masini_model(self):
+        caut = input("Introduceti modelul pe care il cautati:\n")
+        caut = caut.lower()
+        cautare = []
+        masini = self.__masina_service.get_all()
+        for masina in masini:
+            if masina.model.lower().find(caut) > -1:
+                cautare.append(masina)
+        print("Masinile cu modelul cautat sunt:")
+        for i in cautare:
+            print(i)
+
+    def ui_cautare_masini_an(self):
+        caut = input("Introduceti anul achizitiei pe care il cautati:\n")
+        caut = caut.lower()
+        cautare = []
+        masini = self.__masina_service.get_all()
+        for masina in masini:
+            if str(masina.an_achizitie).lower().find(caut) > -1:
+                cautare.append(masina)
+        print("Masinile cu anul cautat sunt:")
+        for i in cautare:
+            print(i)
+
+    def ui_cautare_masini_km(self):
+        caut = input("Introduceti numarul de km pe care il cautati:\n")
+        caut = caut.lower()
+        cautare = []
+        masini = self.__masina_service.get_all()
+        for masina in masini:
+            if str(masina.nr_km).lower().find(caut) > -1:
+                cautare.append(masina)
+        print("Masinile cu numarul de km cautat sunt:")
+        for i in cautare:
+            print(i)
+
+    def ui_cautare_clienti(self):
+        while True:
+            print("1.Cautare dupa nume\n"
+                  "2.Cautare dupa prenume\n"
+                  "3.Cautare dupa CNP\n"
+                  "x.Iesire din meniu \"Cautare clienti\" \n")
+            option = input("Alegeti optiunea:\n")
+            if option == "1":
+                self.ui_cautare_clienti_nume()
+            elif option == "2":
+                self.ui_cautare_clienti_prenume()
+            elif option == "3":
+                self.ui_cautare_clienti_cnp()
+            elif option == "x":
+                break
+            else:
+                print("Optiune invalida\n")
+
+    def ui_cautare_clienti_nume(self):
+        caut = input("Introduceti numele pe care il cautati:\n")
+        caut = caut.lower()
+        cautare = []
+        clienti = self.__card_client_service.get_all()
+        for client in clienti:
+            if client.nume.lower().find(caut) > -1:
+                cautare.append(client)
+        print("Clientii cu numele cautat sunt:")
+        for i in cautare:
+            print(i)
+
+    def ui_cautare_clienti_prenume(self):
+        caut = input("Introduceti prenumele pe care il cautati:\n")
+        caut = caut.lower()
+        cautare = []
+        clienti = self.__card_client_service.get_all()
+        for client in clienti:
+            if client.prenume.lower().find(caut) > -1:
+                cautare.append(client)
+        print("Clientii cu prenumele cautat sunt:")
+        for i in cautare:
+            print(i)
+
+    def ui_cautare_clienti_cnp(self):
+        caut = input("Introduceti CNP-ul pe care il cautati:\n")
+        caut = caut.lower()
+        cautare = []
+        clienti = self.__card_client_service.get_all()
+        for client in clienti:
+            if str(client.CNP).lower().find(caut) > -1:
+                cautare.append(client)
+        print("Clientii cu CNP-ul cautat sunt:")
+        for i in cautare:
+            print(i)
+
+    def ui_cautare_full(self):
+        caut = input("Introduceti termenul pe care il cautati:\n")
+        caut = caut.lower()
+        cautare_m = []
+        cautare_c = []
+        clienti = self.__card_client_service.get_all()
+        masini = self.__masina_service.get_all()
+        for masina in masini:
+            if masina.model.lower().find(caut) > -1 or str(masina.an_achizitie).lower().find(caut) > -1 or str(
+                    masina.nr_km).lower().find(caut) > -1:
+                cautare_m.append(masina)
+
+        for client in clienti:
+            if client.nume.lower().find(caut) > -1 or client.prenume.lower().find(
+                    caut) > -1 or str(client.CNP).find(caut) > -1:
+                cautare_c.append(client)
+
+        print("Masinile cu termenul cautat sunt:")
+        for m in cautare_m:
+            print(m)
+
+        print("Clientii cu termenul cautat sunt:")
+        for c in cautare_c:
+            print(c)
