@@ -1,3 +1,5 @@
+import datetime
+
 from Service.card_client_service import CardClientService
 from Service.masina_service import MasinaService
 from Service.tranzactie_service import TranzactieService
@@ -20,6 +22,7 @@ class Consola:
                   "5.Cautare \n"
                   "6.Afisarea masinilor ordonate descrescator dupa suma obtinuta la manopera\n"
                   "7.Afișarea cardurilor client ordonate descrescător după valoarea reducerilor obținute\n"
+                  "8.Stergerea tuturor tranzactiilo dintr-un anumit interval de zile\n"
                   "x.Iesire\n")
             option = input("Alegeti o optiune:\n")
             if option == '1':
@@ -36,6 +39,8 @@ class Consola:
                 self.ui_ordonat_manopera()
             elif option == '7':
                 self.ui_ordonat_reducere()
+            elif option == '8':
+                self.ui_stergere_interval()
             elif option == 'x':
                 break
             else:
@@ -442,11 +447,30 @@ class Consola:
         sortat = self.__tranzactie_service.masini_dupa_manopera()
         for masina in sortat:
             print(masina[0])
-            print("cu suma manoperei "+ str(masina[1]))
+            print("cu suma manoperei " + str(masina[1]))
 
     def ui_ordonat_reducere(self):
         print("Cardurile ordonate descrescator dupa valoarea reducerii obtinute:")
         sortat = self.__tranzactie_service.carduri_dupa_valoarea_reducerii()
         for card in sortat:
             print(card[0])
-            print("cu valoarea redusa "+str(card[1]))
+            print("cu valoarea redusa " + str(card[1]))
+
+    def ui_stergere_interval(self):
+        data_1 = input("Data de inceput a intervalului de forma (dd.mm.yyyy):\n")
+        try:
+            datetime.datetime.strptime(data_1, '%d.%m.%Y')
+        except ValueError:
+            print("Data trebuie sa fie formatul dd.mm.yyyy.")
+            pass
+        data_2 = input("Data de final a intervalului de forma (dd.mm.yyyy):\n")
+        try:
+            datetime.datetime.strptime(data_2, '%d.%m.%Y')
+        except ValueError:
+            print("Data trebuie sa fie formatul dd.mm.yyyy.")
+            pass
+        lista = self.__tranzactie_service.stergere_in_interval(data_1, data_2)
+        tranzactii = self.__tranzactie_service.get_all()
+        for tranzactie in tranzactii:
+            if tranzactie.id_tranzactie in lista:
+                self.__tranzactie_service.stergere(tranzactie.id_tranzactie)

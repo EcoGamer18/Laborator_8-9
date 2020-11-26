@@ -1,3 +1,5 @@
+import datetime
+
 from Domain.tranzactie import Tranzactie
 from Domain.tranzactie_validator import TranzactieValidator
 from Repository.file_repository import FileRepository
@@ -145,6 +147,38 @@ class TranzactieService:
             if card.id_entitate not in chei:
                 carduri_sortate.append([card, 0])
 
-        carduri_sortate.sort(key=lambda x: x[1] )
+        carduri_sortate.sort(key=lambda x: x[1])
 
         return carduri_sortate
+
+    def stergere_in_interval(self, data_inceput, data_final):
+        tranzactii = self.__tranzactie_repository.get_all()
+        data_inceput = data_inceput.split('.')
+        data_final = data_final.split('.')
+        lista_id = []
+        for tranzactie in tranzactii:
+            auxiliar = tranzactie.data.split('.')
+            if int(data_inceput[2]) < int(auxiliar[2]) < int(data_final[2]):
+                # Strict intre anii dati
+                lista_id.append(tranzactie.id_entitate)
+            elif int(data_final[2]) == int(auxiliar[2]):
+                # Egal cu anul final
+                if int(auxiliar[1]) < int(data_final[1]):
+                    # strict inainte de luna finala
+                    lista_id.append(tranzactie.id_entitate)
+                elif int(data_final[1]) == int(auxiliar[1]):
+                    # in luna finala
+                    if int(data_final[0]) <= int(auxiliar[0]):
+                        # mai mic egal decat ziua finala
+                        lista_id.append(tranzactie.id_entitate)
+            elif int(data_inceput[2]) == int(auxiliar[2]):
+                # Egal cu anul final
+                if int(auxiliar[1]) > int(data_final[1]):
+                    # strict dupa de luna inceput
+                    lista_id.append(tranzactie.id_entitate)
+                elif int(data_inceput[1]) == int(auxiliar[1]):
+                    # egal cu luna de inceput
+                    if int(data_final[0]) >= int(auxiliar[0]):
+                        # mai mare egal decat ziua de inceput
+                        lista_id.append(tranzactie.id_entitate)
+        return lista_id
