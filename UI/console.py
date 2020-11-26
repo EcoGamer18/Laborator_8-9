@@ -19,7 +19,8 @@ class Consola:
                   "4.Afișarea tuturor tranzacțiilor cu suma cuprinsă într-un interval dat.\n"
                   "5.Cautare \n"
                   "6.Afisarea masinilor ordonate descrescator dupa suma obtinuta la manopera\n"
-                  "x.Iesire")
+                  "7.Afișarea cardurilor client ordonate descrescător după valoarea reducerilor obținute\n"
+                  "x.Iesire\n")
             option = input("Alegeti o optiune:\n")
             if option == '1':
                 self.run_crud_masini()
@@ -33,6 +34,8 @@ class Consola:
                 self.ui_cautare()
             elif option == '6':
                 self.ui_ordonat_manopera()
+            elif option == '7':
+                self.ui_ordonat_reducere()
             elif option == 'x':
                 break
             else:
@@ -439,4 +442,11 @@ class Consola:
         sortat = self.__tranzactie_service.masini_dupa_manopera()
         for masina in sortat:
             print(masina[0])
-            print(masina[1] + str(masina[2]))
+            print("cu suma manoperei "+ str(masina[1]))
+
+    def ui_ordonat_reducere(self):
+        print("Cardurile ordonate descrescator dupa valoarea reducerii obtinute:")
+        sortat = self.__tranzactie_service.carduri_dupa_valoarea_reducerii()
+        for card in sortat:
+            print(card[0])
+            print("cu valoarea redusa "+str(card[1]))

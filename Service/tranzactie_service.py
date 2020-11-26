@@ -112,10 +112,39 @@ class TranzactieService:
         chei = sortat.keys()
 
         for i in chei:
-            masini_sortate.append([self.__masini_repository.get_by_id(i)," cu suma manoperei ",sortat[i]])
+            masini_sortate.append([self.__masini_repository.get_by_id(i), sortat[i]])
 
         for masina in masini:
             if masina.id_entitate not in chei:
-                masini_sortate.append([masina , " cu suma manoperei ",0])
+                masini_sortate.append([masina, 0])
+
+        masini_sortate.sort(key=lambda x: x[1])
 
         return masini_sortate
+
+    def carduri_dupa_valoarea_reducerii(self):
+        tranzactii = self.__tranzactie_repository.get_all()
+        carduri = self.__card_client_repository.get_all()
+
+        sortat = {}
+
+        for tranzactie in tranzactii:
+            if tranzactie.id_card_client != '0':
+                if tranzactie.id_card_client in sortat:
+                    sortat[tranzactie.id_card_client] += tranzactie.suma_piese
+                else:
+                    sortat[tranzactie.id_card_client] = tranzactie.suma_piese
+
+        carduri_sortate = []
+        chei = sortat.keys()
+
+        for i in chei:
+            carduri_sortate.append([self.__card_client_repository.get_by_id(i), sortat[i]])
+
+        for card in carduri:
+            if card.id_entitate not in chei:
+                carduri_sortate.append([card, 0])
+
+        carduri_sortate.sort(key=lambda x: x[1] )
+
+        return carduri_sortate
