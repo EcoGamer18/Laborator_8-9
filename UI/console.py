@@ -18,6 +18,7 @@ class Consola:
                   "3.CRUD tranzactii\n"
                   "4.Afișarea tuturor tranzacțiilor cu suma cuprinsă într-un interval dat.\n"
                   "5.Cautare \n"
+                  "6.Afisarea masinilor ordonate descrescator dupa suma obtinuta la manopera\n"
                   "x.Iesire")
             option = input("Alegeti o optiune:\n")
             if option == '1':
@@ -30,6 +31,8 @@ class Consola:
                 self.ui_afisare_interval()
             elif option == '5':
                 self.ui_cautare()
+            elif option == '6':
+                self.ui_ordonat_manopera()
             elif option == 'x':
                 break
             else:
@@ -430,3 +433,10 @@ class Consola:
         print("Clientii cu termenul cautat sunt:")
         for c in cautare_c:
             print(c)
+
+    def ui_ordonat_manopera(self):
+        print("Masinile ordonate descrescator dupa suma obtinuta pe manopera:")
+        sortat = self.__tranzactie_service.masini_dupa_manopera()
+        for masina in sortat:
+            print(masina[0])
+            print(masina[1] + str(masina[2]))

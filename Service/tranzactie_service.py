@@ -6,11 +6,11 @@ from ViewModels.view_models import ViewModels
 
 class TranzactieService:
     def __init__(self, tranzactie_repository: FileRepository, masini_repository: FileRepository,
-                 card_client_repository: FileRepository,tranzactie_validator: TranzactieValidator):
+                 card_client_repository: FileRepository, tranzactie_validator: TranzactieValidator):
         self.__tranzactie_repository = tranzactie_repository
         self.__masini_repository = masini_repository
         self.__card_client_repository = card_client_repository
-        self.__tranzactie_validator=tranzactie_validator
+        self.__tranzactie_validator = tranzactie_validator
 
     def get_all(self):
         view_models = []
@@ -98,3 +98,24 @@ class TranzactieService:
                                tranzactie.data, tranzactie.ora, tranzactie.reducere_card,
                                tranzactie.reducere_garantie, tranzactie.s_p_redusa, tranzactie.s_m_redusa))
         return tranzactii_interval
+
+    def masini_dupa_manopera(self):
+        tranzactii = self.__tranzactie_repository.get_all()
+        masini = self.__masini_repository.get_all()
+        sortat = {}
+        for tranzactie in tranzactii:
+            if tranzactie.id_masina in sortat:
+                sortat[tranzactie.id_masina] += tranzactie.s_m_redusa
+            else:
+                sortat[tranzactie.id_masina] = tranzactie.s_m_redusa
+        masini_sortate = []
+        chei = sortat.keys()
+
+        for i in chei:
+            masini_sortate.append([self.__masini_repository.get_by_id(i)," cu suma manoperei ",sortat[i]])
+
+        for masina in masini:
+            if masina.id_entitate not in chei:
+                masini_sortate.append([masina , " cu suma manoperei ",0])
+
+        return masini_sortate
