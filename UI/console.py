@@ -23,6 +23,8 @@ class Consola:
                   "6.Afisarea masinilor ordonate descrescator dupa suma obtinuta la manopera\n"
                   "7.Afișarea cardurilor client ordonate descrescător după valoarea reducerilor obținute\n"
                   "8.Stergerea tuturor tranzactiilo dintr-un anumit interval de zile\n"
+                  "9.Actualizarea garanției la fiecare mașină: o mașină este în garanție dacă și numai "
+                  "dacă are maxim 3 ani și maxim 60 000 de km\n"
                   "x.Iesire\n")
             option = input("Alegeti o optiune:\n")
             if option == '1':
@@ -41,6 +43,8 @@ class Consola:
                 self.ui_ordonat_reducere()
             elif option == '8':
                 self.ui_stergere_interval()
+            elif option == '9':
+                self.ui_modificare_garantie()
             elif option == 'x':
                 break
             else:
@@ -474,3 +478,7 @@ class Consola:
         for tranzactie in tranzactii:
             if tranzactie.id_tranzactie in lista:
                 self.__tranzactie_service.stergere(tranzactie.id_tranzactie)
+
+    def ui_modificare_garantie(self):
+        self.__masina_service.modificare_garantie()
+        print(yellow("Modificarea a fost facuta.", ['italic']))

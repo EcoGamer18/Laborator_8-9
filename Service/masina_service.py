@@ -1,3 +1,5 @@
+import datetime
+
 from Domain.masina import Masina
 from Domain.masina_validator import MasinaValidator
 from Repository.file_repository import FileRepository
@@ -42,3 +44,13 @@ class MasinaService:
 
         self.__masini_validator.validator(masina)
         self.__masini_repository.modificare(masina)
+
+    def modificare_garantie(self):
+        masini = self.__masini_repository.get_all()
+        acum = datetime.datetime.now().strftime("%d.%m.%Y")
+        acum = acum.split('.')
+        for masina in masini:
+            if float(acum[2]) - float(masina.an_achizitie) <= 3 and masina.nr_km <= 60000:
+                self.modificare(masina.id_entitate, "", 0, 0, "DA")
+            else:
+                self.modificare(masina.id_entitate, "", 0, 0, "NU")
