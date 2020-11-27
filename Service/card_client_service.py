@@ -69,13 +69,13 @@ class CardClientService:
             ziua_adaos = "0" if ziua <= 9 else ""
             luna = random.choice(range(1, 13))
             luna_adaos = "0" if luna <= 9 else ""
-            anul = random.choice(range(1989, 2020))
+            anul = random.choice(range(1989, 2010))
             data_nasterii = ziua_adaos + str(ziua) + '.' + luna_adaos + str(luna) + '.' + str(anul)
             ziua = random.choice(range(1, 31))
             ziua_adaos = "0" if ziua <= 9 else ""
             luna = random.choice(range(1, 13))
             luna_adaos = "0" if luna <= 9 else ""
-            anul = random.choice(range(1989, 2020))
+            anul = random.choice(range(anul+1, 2020))
             data_inregistrarii = ziua_adaos + str(ziua) + '.' + luna_adaos + str(luna) + '.' + str(anul)
             carduri = CardClient(id, nume_ob, prenume_ob, CNP, data_nasterii, data_inregistrarii)
             self.__card_client_repository.adaugare(carduri)

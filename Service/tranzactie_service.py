@@ -114,13 +114,13 @@ class TranzactieService:
         chei = sortat.keys()
 
         for i in chei:
-            masini_sortate.append([self.__masini_repository.get_by_id(i), sortat[i]])
+            masini_sortate.append([self.__masini_repository.get_by_id(i), round(sortat[i], 2)])
 
         for masina in masini:
             if masina.id_entitate not in chei:
                 masini_sortate.append([masina, 0])
 
-        masini_sortate.sort(key=lambda x: x[1])
+        masini_sortate.sort(key=lambda x: -x[1])
 
         return masini_sortate
 
@@ -133,21 +133,21 @@ class TranzactieService:
         for tranzactie in tranzactii:
             if tranzactie.id_card_client != '0':
                 if tranzactie.id_card_client in sortat:
-                    sortat[tranzactie.id_card_client] += tranzactie.suma_piese
+                    sortat[tranzactie.id_card_client] += tranzactie.suma_manopera - tranzactie.s_m_redusa
                 else:
-                    sortat[tranzactie.id_card_client] = tranzactie.suma_piese
+                    sortat[tranzactie.id_card_client] = tranzactie.suma_manopera - tranzactie.s_m_redusa
 
         carduri_sortate = []
         chei = sortat.keys()
 
         for i in chei:
-            carduri_sortate.append([self.__card_client_repository.get_by_id(i), sortat[i]])
+            carduri_sortate.append([self.__card_client_repository.get_by_id(i), round(sortat[i], 2)])
 
         for card in carduri:
-            if card.id_entitate not in chei:
+            if card.id_entitate not in chei and card is not None:
                 carduri_sortate.append([card, 0])
 
-        carduri_sortate.sort(key=lambda x: x[1])
+        carduri_sortate.sort(key=lambda x: -x[1])
 
         return carduri_sortate
 
