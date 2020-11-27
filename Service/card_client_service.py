@@ -1,4 +1,6 @@
+import datetime
 import random
+import xlsxwriter
 
 from Domain.card_client import CardClient
 from Domain.card_client_validator import CardValidator
@@ -77,3 +79,30 @@ class CardClientService:
             data_inregistrarii = ziua_adaos + str(ziua) + '.' + luna_adaos + str(luna) + '.' + str(anul)
             carduri = CardClient(id, nume_ob, prenume_ob, CNP, data_nasterii, data_inregistrarii)
             self.__card_client_repository.adaugare(carduri)
+
+    def excel_carduri(self):
+        carduri = self.__card_client_repository.get_all()
+        workbook = xlsxwriter.Workbook('Carduri.xls')
+        worksheet = workbook.add_worksheet()
+        worksheet.set_column(1, 7, 15)
+        bold = workbook.add_format({'bold': 1})
+        worksheet.write('A1', 'Id card', bold)
+        worksheet.write('B1', 'Nume', bold)
+        worksheet.write('C1', 'Prenume', bold)
+        worksheet.write('D1', 'CNP', bold)
+        worksheet.write('E1', 'Data nasterii', bold)
+        worksheet.write('F1', 'Data inregistrarii', bold)
+
+        row = 1
+        col = 0
+
+        for card in carduri:
+            worksheet.write_string(row, col, str(card.id_entitate))
+            worksheet.write_string(row, col + 1, card.nume)
+            worksheet.write_string(row, col + 2, card.prenume)
+            worksheet.write_string(row, col + 3, str(card.CNP))
+            worksheet.write_string(row, col + 4, card.data_nasterii)
+            worksheet.write_string(row, col + 5, card.data_inregistrarii)
+            row += 1
+
+        workbook.close()

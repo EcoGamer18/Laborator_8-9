@@ -25,6 +25,7 @@ class Consola:
                   "8.Stergerea tuturor tranzactiilo dintr-un anumit interval de zile\n"
                   "9.Actualizarea garanției la fiecare mașină: o mașină este în garanție dacă și numai "
                   "dacă are maxim 3 ani și maxim 60 000 de km\n"
+                  "10.Excel cu carduri\n"
                   "x.Iesire\n")
             option = input("Alegeti o optiune:\n")
             if option == '1':
@@ -45,6 +46,8 @@ class Consola:
                 self.ui_stergere_interval()
             elif option == '9':
                 self.ui_modificare_garantie()
+            elif option == '10':
+                self.ui_excel_carduri()
             elif option == 'x':
                 break
             else:
@@ -482,3 +485,6 @@ class Consola:
     def ui_modificare_garantie(self):
         self.__masina_service.modificare_garantie()
         print(yellow("Modificarea a fost facuta.", ['italic']))
+
+    def ui_excel_carduri(self):
+        self.__card_client_service.excel_carduri()
