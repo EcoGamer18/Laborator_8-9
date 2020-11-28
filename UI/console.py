@@ -74,6 +74,7 @@ class Consola:
             else:
                 print("Optiune invalida")
 
+
     def ui_adaugare_masina(self):
         try:
             id_masina = input("Id-ul masinii: ")
