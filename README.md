@@ -28,7 +28,7 @@ Fiecare student primește o problemă de mai jos. Trebuie predat:
 8. Ștergerea tuturor tranzacțiilor dintr-un anumit interval de zile.
 9. Actualizarea garanției la fiecare mașină: o mașină este în garanție dacă și numai dacă are maxim 3 ani și maxim 60.000 de km.
 
-L8. Popularea unui repository la un anumit obiect
+L8. Optiune de popularea unui repository la un anumit obiect.
 
 L9. Export Excel.
 
