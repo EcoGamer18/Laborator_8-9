@@ -31,24 +31,11 @@ Fiecare student primește o problemă de mai jos. Trebuie predat:
 
 **Atentie! Foloseste jsonpickle, xlxswritter si random**
 
-
-
-  [Links random -1](https://stackoverflow.com/questions/40921767/generate-list-of-random-names-python)
-  
-  [Links random -2](https://pynative.com/python-get-random-float-numbers/)
-  
-  [Links random -3](https://docs.python.org/3/library/random.html)
-  
-  [Links random -4](https://machinelearningmastery.com/how-to-generate-random-numbers-in-python/)
-
-
-  [Links Excel -1](https://www.datacamp.com/community/tutorials/python-excel-tutorial)
-  
-  [Links Excel -2](https://www.geeksforgeeks.org/reading-excel-file-using-python/)
-  
-  [Links Excel -3](https://realpython.com/openpyxl-excel-spreadsheets-python/)
-  
-  [Links Excel -4](https://xlsxwriter.readthedocs.io/)
-  
-  [Links Excel -5](https://stackabuse.com/reading-and-writing-excel-files-in-python-with-the-pandas-library/)
+Random|Excel
+-------|--------
+[Links random -1](https://stackoverflow.com/questions/40921767/generate-list-of-random-names-python)|[Links Excel -1](https://www.datacamp.com/community/tutorials/python-excel-tutorial)
+[Links random -2](https://pynative.com/python-get-random-float-numbers/)|[Links Excel -2](https://www.geeksforgeeks.org/reading-excel-file-using-python/)
+[Links random -3](https://docs.python.org/3/library/random.html)|[Links Excel -3](https://realpython.com/openpyxl-excel-spreadsheets-python/)
+[Links random -4](https://machinelearningmastery.com/how-to-generate-random-numbers-in-python/)|[Links Excel -4](https://xlsxwriter.readthedocs.io/)
+<br>|[Links Excel -5](https://stackabuse.com/reading-and-writing-excel-files-in-python-with-the-pandas-library/)
 
