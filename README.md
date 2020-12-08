@@ -16,7 +16,7 @@ Fiecare student primește o problemă de mai jos. Trebuie predat:
     
     b. Mate:  toate  funcționalitățile,  eventual  fără  repository.  Salvarea datelorîn memorie.
     
-***C.Service auto***
+***C. Service auto***
 
 1. CRUD mașină: id, model, an achiziție, nr. km, în garanție. Km și anul fabricației să fie strict pozitivi.
 2. CRUD card client: id, nume, prenume, CNP, data nașterii (dd.mm.yyyy), data înregistrării (dd.mm.yyyy). CNP-ul trebuie să fie unic.
@@ -33,15 +33,22 @@ Fiecare student primește o problemă de mai jos. Trebuie predat:
 
 
 
-[Links random -1](https://stackoverflow.com/questions/40921767/generate-list-of-random-names-python)
-[Links random -2](https://pynative.com/python-get-random-float-numbers/)
-[Links random -3](https://docs.python.org/3/library/random.html)
-[Links random -4](https://machinelearningmastery.com/how-to-generate-random-numbers-in-python/)
+  [Links random -1](https://stackoverflow.com/questions/40921767/generate-list-of-random-names-python)
+  
+  [Links random -2](https://pynative.com/python-get-random-float-numbers/)
+  
+  [Links random -3](https://docs.python.org/3/library/random.html)
+  
+  [Links random -4](https://machinelearningmastery.com/how-to-generate-random-numbers-in-python/)
 
 
-[Links Excel -1](https://www.datacamp.com/community/tutorials/python-excel-tutorial)
-[Links Excel -2](https://www.geeksforgeeks.org/reading-excel-file-using-python/)
-[Links Excel -3](https://realpython.com/openpyxl-excel-spreadsheets-python/)
-[Links Excel -4](https://xlsxwriter.readthedocs.io/)
-[Links Excel -5](https://stackabuse.com/reading-and-writing-excel-files-in-python-with-the-pandas-library/)
+  [Links Excel -1](https://www.datacamp.com/community/tutorials/python-excel-tutorial)
+  
+  [Links Excel -2](https://www.geeksforgeeks.org/reading-excel-file-using-python/)
+  
+  [Links Excel -3](https://realpython.com/openpyxl-excel-spreadsheets-python/)
+  
+  [Links Excel -4](https://xlsxwriter.readthedocs.io/)
+  
+  [Links Excel -5](https://stackabuse.com/reading-and-writing-excel-files-in-python-with-the-pandas-library/)
 
