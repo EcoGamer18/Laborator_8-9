@@ -26,7 +26,7 @@ Fiecare student primește o problemă de mai jos. Trebuie predat:
 6. Afișarea mașinilor  ordonate descrescător după suma obținută pe manoperă.
 7. Afișarea cardurilor client ordonate descrescător după valoarea reducerilor obținute.
 8. Ștergerea tuturor tranzacțiilor dintr-un anumit interval de zile.
-9. Actualizarea garanției la fiecare mașină: o mașină este în garanție dacă și numai dacă are maxim 3 ani și maxim 60 000 de km.
+9. Actualizarea garanției la fiecare mașină: o mașină este în garanție dacă și numai dacă are maxim 3 ani și maxim 60.000 de km.
 10. Export Excel.
 
 **Atentie! Foloseste jsonpickle, xlxswritter si random**
