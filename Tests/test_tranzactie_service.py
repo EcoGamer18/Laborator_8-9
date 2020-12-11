@@ -13,8 +13,8 @@ def test_adaugare_tranzactie():
     masini_repository = FileRepository('masini-test.txt')
     clear_file("carduri-test.txt")
     carduri_repository = FileRepository('carduri-test.txt')
-    tranzactii_validator= TranzactieValidator()
-    service = TranzactieService(tranzactii_repository, masini_repository, carduri_repository,tranzactii_validator)
+    tranzactii_validator = TranzactieValidator()
+    service = TranzactieService(tranzactii_repository, masini_repository, carduri_repository, tranzactii_validator)
     carduri_repository.adaugare(CardClient('1', 'Popescu', 'Dan', '5000121223541', "18.01.2001", '04.11.2003'))
     masini_repository.adaugare(Masina('1', 'Mercedes', 1998, 450000, "NU"))
     service.adaugare('1', '1', '1', 152, 1562, '18.10.2012', '15:10')
@@ -102,3 +102,18 @@ def test_modificare_tranzactie():
     assert updated.suma_manopera == 48888
     assert updated.data == '18.10.2012'
     assert updated.ora == '15:10'
+
+
+def test_sortare():
+    clear_file('tranzactii-test.txt')
+    tranzactii_repository = FileRepository("tranzactii-test.txt")
+    clear_file("masini-test.txt")
+    masini_repository = FileRepository('masini-test.txt')
+    clear_file("carduri-test.txt")
+    carduri_repository = FileRepository('carduri-test.txt')
+    tranzactii_validator = TranzactieValidator()
+    service = TranzactieService(tranzactii_repository, masini_repository, carduri_repository, tranzactii_validator)
+    lista = [4, 5, 8, 9, 6, 3, 1]
+    service.mySort_Special(lista, key=lambda x: x)
+
+    assert lista == [1, 3, 4, 5, 6, 8, 9]

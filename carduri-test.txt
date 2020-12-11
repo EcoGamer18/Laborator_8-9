@@ -1,1 +1,0 @@
-{"1": {"py/object": "Domain.card_client.CardClient", "_Entitate__id_entitate": "1", "_CardClient__nume": "Popescu", "_CardClient__prenume": "Dan", "_CardClient__CNP": "5000121223541", "_CardClient__data_nasterii": "18.01.2001", "_CardClient__data_inregistrarii": "04.11.2003"}}

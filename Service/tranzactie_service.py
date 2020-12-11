@@ -101,6 +101,34 @@ class TranzactieService:
                                tranzactie.reducere_garantie, tranzactie.s_p_redusa, tranzactie.s_m_redusa))
         return tranzactii_interval
 
+    def mySort_Special(self, lista, key):
+        if len(lista) != 1:
+            mid = len(lista) // 2
+            left_side = lista[:mid]
+            right_side = lista[mid:]
+            self.mySort_Special(left_side, key)
+            self.mySort_Special(right_side, key)
+
+            i = j = k = 0
+            while i < len(left_side) and j < len(right_side):
+                if key(left_side[i]) < key(right_side[j]):
+                    lista[k] = left_side[i]
+                    i += 1
+                else:
+                    lista[k] = right_side[j]
+                    j += 1
+                k += 1
+
+            while i < len(left_side):
+                lista[k] = left_side[i]
+                i += 1
+                k += 1
+
+            while j < len(right_side):
+                lista[k] = right_side[j]
+                j += 1
+                k += 1
+
     def masini_dupa_manopera(self):
         tranzactii = self.__tranzactie_repository.get_all()
         masini = self.__masini_repository.get_all()
@@ -120,7 +148,8 @@ class TranzactieService:
             if masina.id_entitate not in chei:
                 masini_sortate.append([masina, 0])
 
-        masini_sortate.sort(key=lambda x: -x[1])
+        # masini_sortate.sort(key=lambda x: -x[1])
+        self.mySort_Special(masini_sortate, key=lambda x: -x[1])
 
         return masini_sortate
 
@@ -141,13 +170,15 @@ class TranzactieService:
         chei = sortat.keys()
 
         for i in chei:
-            carduri_sortate.append([self.__card_client_repository.get_by_id(i), round(sortat[i], 2)])
+            if self.__card_client_repository.get_by_id(i) is not None:
+                carduri_sortate.append([self.__card_client_repository.get_by_id(i), round(sortat[i], 2)])
 
         for card in carduri:
             if card.id_entitate not in chei and card is not None:
                 carduri_sortate.append([card, 0])
 
-        carduri_sortate.sort(key=lambda x: -x[1])
+        # carduri_sortate.sort(key=lambda x: -x[1])
+        self.mySort_Special(carduri_sortate, key=lambda x: -x[1])
 
         return carduri_sortate
 

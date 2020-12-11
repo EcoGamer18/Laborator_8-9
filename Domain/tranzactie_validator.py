@@ -7,8 +7,8 @@ class TranzactieValidator:
     def validator(self, tranzactie: Tranzactie):
         erori = []
         try:
-            id=int(tranzactie.id_entitate)
-            if id<=0:
+            id = int(tranzactie.id_entitate)
+            if id <= 0:
                 raise ValueError
         except ValueError:
             erori.append("Id-ul trebuie sa fie de tipul int strict pozitiv.")
@@ -24,5 +24,5 @@ class TranzactieValidator:
             datetime.datetime.strptime(tranzactie.ora, '%H:%M')
         except ValueError:
             erori.append("Ora trebuie sa fie formatul hh:mm.")
-        if len(erori)>0:
+        if len(erori) > 0:
             raise ValueError(erori)
